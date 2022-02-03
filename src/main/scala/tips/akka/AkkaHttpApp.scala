@@ -31,13 +31,11 @@ object AkkaHttpApp extends App {
     )
   )
 
-  def sendRequest(req: HttpRequest): Future[String] = {
-    val futureResponse: Future[HttpResponse] = Http().singleRequest(req)
-    val futureEntity: Future[HttpEntity.Strict] = futureResponse.flatMap { resp =>
-      resp.entity.toStrict(2.seconds)
-    }
-    futureEntity.map(entity => entity.data.utf8String)
-  }
+  def sendRequest(req: HttpRequest): Future[String] =
+    for {
+      resp   <- Http().singleRequest(req)
+      entity <- resp.entity.toStrict(2.seconds)
+    } yield entity.data.utf8String
 
   sendRequest(request).foreach(println)
 }
