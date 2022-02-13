@@ -7,6 +7,9 @@ object Dependencies {
   private val akkaVersion     = "2.6.8"
   private val akkaHttpVersion = "10.2.7"
 
+  // apache commons
+  lazy val apacheCommonsIo = "commons-io" % "commons-io" % "2.6"
+
   // akka streams
   lazy val akkaStream = "com.typesafe.akka" %% "akka-stream" % akkaVersion
   // akka http
